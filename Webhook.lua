@@ -19,6 +19,7 @@ local Webhook = {}; do
 
         if not Succes then
             warn("Failed to send webhook: " .. Error)
+            Lib.prompt('Error', 'Failed to send webhook:' .. Error, 2)
         end
 
     end
