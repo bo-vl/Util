@@ -25,7 +25,7 @@ local Webhook = {}; do
 end
 
 function Webhook:Send(Webhook, Message) 
-    Send(Webhook, Message)
+    Webhook:Send(Webhook, Message)
 end
 
 return Webhook
