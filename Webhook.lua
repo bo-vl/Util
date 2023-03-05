@@ -20,7 +20,7 @@ function Webhook:Send(WebhookUrl, Message)
     end)
 
     if not Success then
-        Lib.prompt("Error", Error, 5)
+        Lib.prompt("Error", "" .. Error, 5)
     else
         Lib.prompt("Success", "Message sent to webhook", 5)
     end
