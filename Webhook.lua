@@ -2,6 +2,10 @@ local Request = (syn and syn.request or request or http and http.request or http
 local HttpService = game:GetService("HttpService")
 local Lib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Robobo2022/notify-lib/main/lib'),true))()
 
+local WebhookSettings = {
+    ["@everyone"] = false;
+}
+
 local Webhook = {}; do
     function Webhook:Send(Webhook, Message)
         local Succes, Error = pcall(function()
@@ -12,7 +16,10 @@ local Webhook = {}; do
                     ["Content-Type"] = "application/json"
                 },
                 Body = HttpService:JSONEncode({
-                    ["content"] = Message
+                    allowed_mentions = {
+                        parse = WebhookSettings["@everyone"] and {"everyone"} or {}
+                    },
+                    content = Message
                 })
             })
         end)
