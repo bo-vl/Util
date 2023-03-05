@@ -25,18 +25,17 @@ function Webhook:Send(WebhookUrl, Message)
     end
 end
 
-function Webhook:Embed(WebhookUrl, Embed)
+function Webhook:Name(Webhook, Name)
     local Success, Error = pcall(function()
-        local Data = {
-            ["embeds"] = {Embed}
-        }
         Request({
-            Url = WebhookUrl,
-            Method = "POST",
+            Url = Webhook,
+            Method = "PATCH",
             Headers = {
                 ["Content-Type"] = "application/json"
             },
-            Body = HttpService:JSONEncode(Data)
+            Body = HttpService:JSONEncode({
+                name = Name
+            })
         })
     end)
 
