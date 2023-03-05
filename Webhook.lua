@@ -22,6 +22,26 @@ local Webhook = {}; do
             Lib.prompt('Error', 'Failed to send webhook:' .. Error, 2)
         end
 
+end
+
+function Webhook:SendEmbed(Webhook, Embed)
+    local Succes, Error = pcall(function()
+        Request({
+            Url = Webhook,
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json"
+            },
+            Body = HttpService:JSONEncode({
+                ["embeds"] = {Embed}
+            })
+        })
+    end)
+
+    if not Succes then
+        warn("Failed to send webhook: " .. Error)
+        Lib.prompt('Error', 'Failed to send webhook:' .. Error, 2)
     end
 end
+
 return Webhook
