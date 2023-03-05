@@ -35,7 +35,7 @@ function Webhook:Name(Webhook, Name)
                 ["Content-Type"] = "application/json"
             },
             Body = HttpService:JSONEncode({
-                name = Name
+                Name = Name
             })
         })
     end)
