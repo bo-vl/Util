@@ -1,6 +1,5 @@
 local Request = (syn and syn.request or request or http and http.request or http_request) or error("No request function found")
 local HttpService = game:GetService("HttpService")
-
 local Lib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Robobo2022/notify-lib/main/lib'),true))()
 
 local Webhook = {}
