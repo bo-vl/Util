@@ -2,30 +2,31 @@ local Request = (syn and syn.request or request or http and http.request or http
 local HttpService = game:GetService("HttpService")
 local Lib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Robobo2022/notify-lib/main/lib'),true))()
 
-local Webhook = {}; do
-    function Webhook:Send(Webhook, Message)
-        local Succes, Error = pcall(function()
-            Request({
-                Url = Webhook,
-                Method = "POST",
-                Headers = {
-                    ["Content-Type"] = "application/json"
-                },
-                Body = HttpService:JSONEncode({
-                    ["content"] = Message
-                })
-            })
-        end)
+function Send(Webhook, Message)
+    local Succes, Error = pcall(function()
+        local Data = {
+            ["content"] = Message
+        }
+        Request({
+            Url = Webhook,
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json"
+            },
+            Body = HttpService:JSONEncode(Data)
+        })
+    end)
 
-        if not Succes then
-            warn("Failed to send webhook: " .. Error)
-            Lib.prompt('Error', 'Failed to send webhook:' .. Error, 2)
-        end
+    if not Succes then
+        Lib.prompt("Error", Error, 5)
+    end
 
 end
 
-function Webhook:Send(Webhook, Message) 
-    Webhook:Send(Webhook, Message)
+local Webhook = {}
+
+function Webhook:Send(Webhook ,Message)
+    Send(Webhook, Message)
 end
 
 return Webhook
