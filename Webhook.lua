@@ -26,25 +26,4 @@ function Webhook:Send(WebhookUrl, Message)
     end
 end
 
-function Webhook:Name(Webhook, Name)
-    local Success, Error = pcall(function()
-        Request({
-            Url = Webhook,
-            Method = "PATCH",
-            Headers = {
-                ["Content-Type"] = "application/json"
-            },
-            Body = HttpService:JSONEncode({
-                Name = Name
-            })
-        })
-    end)
-
-    if not Success then
-        Lib.prompt("Error", "" .. Error, 5)
-    else
-        Lib.prompt("Success", "Webhook name changed to " .. Name, 5)
-    end
-end
-
 return Webhook
