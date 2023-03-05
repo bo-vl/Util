@@ -25,4 +25,24 @@ function Webhook:Send(WebhookUrl, Message)
     end
 end
 
+function Webhook:Embed(WebhookUrl, Embed)
+    local Success, Error = pcall(function()
+        local Data = {
+            ["embeds"] = {Embed}
+        }
+        Request({
+            Url = WebhookUrl,
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json"
+            },
+            Body = HttpService:JSONEncode(Data)
+        })
+    end)
+
+    if not Success then
+        Lib.prompt("Error", Error, 5)
+    end
+end
+
 return Webhook
