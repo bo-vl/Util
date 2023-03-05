@@ -41,7 +41,7 @@ function Webhook:Name(Webhook, Name)
     end)
 
     if not Success then
-        Lib.prompt("Error", Error, 5)
+        Lib.prompt("Error", "" .. Error, 5)
     else
         Lib.prompt("Success", "Webhook name changed to " .. Name, 5)
     end
