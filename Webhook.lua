@@ -25,7 +25,7 @@ end
 
 local Webhook = {}
 
-function Webhook.Send(Webhook ,Message)
+function Webhook:Send(Webhook ,Message)
     Send(Webhook, Message)
 end
 
