@@ -21,6 +21,8 @@ function Webhook:Send(WebhookUrl, Message)
 
     if not Success then
         Lib.prompt("Error", Error, 5)
+    else
+        Lib.prompt("Success", "Message sent to webhook", 5)
     end
 end
 
@@ -40,6 +42,8 @@ function Webhook:Name(Webhook, Name)
 
     if not Success then
         Lib.prompt("Error", Error, 5)
+    else
+        Lib.prompt("Success", "Webhook name changed to " .. Name, 5)
     end
 end
 
