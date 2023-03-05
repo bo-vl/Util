@@ -44,6 +44,4 @@ function Webhook:Name(Webhook, Name)
     end
 end
 
-
-
 return Webhook
