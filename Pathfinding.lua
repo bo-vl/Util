@@ -29,6 +29,7 @@ function pathfinding:MoveTo(Position, Wait)
     
         if #Waypoints == 0 then
             Lib.prompt("Error", "No path found", 5)
+            return
         end
     
         for Waypoint = 1, #Waypoints do
@@ -51,6 +52,7 @@ function pathfinding:MoveTo(Position, Wait)
 
     if not Success then
         Lib.prompt("Error", "" .. Error, 5)
+        return
     else
         Lib.prompt("Success", "Moved to position", 5)
     end
@@ -71,6 +73,7 @@ function pathfinding:TweenTo(Position, Wait)
     
         if #Waypoints == 0 then
             Lib.prompt("Error", "No path found", 5)
+            return
         end
     
         for Waypoint = 1, #Waypoints do
@@ -114,6 +117,7 @@ function pathfinding:TeleportTo(Position)
     
         if #Waypoints == 0 then
             Lib.prompt("Error", "No path found", 5)
+            return
         end
     
         HumanoidRootPart.CFrame = CFrame.new(Waypoints[#Waypoints].Position)
@@ -121,6 +125,7 @@ function pathfinding:TeleportTo(Position)
 
     if not Success then
         Lib.prompt("Error", "" .. Error, 5)
+        return
     else
         Lib.prompt("Success", "Moved to position", 5)
     end
