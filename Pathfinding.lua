@@ -7,11 +7,9 @@ local HumanoidRootPart = lplr.Character:WaitForChild("HumanoidRootPart")
 local PathFindingService = game:GetService("PathfindingService")
 local TweenSerivce = game:GetService("TweenService")
 local Camera =  workspace.CurrentCamera
-local Runservice = game:GetService("RunService")
 local Line = Drawing.new("Line")
 
 local pathfinding = {}
-local Lines = {}
 
 lplr.CharacterAdded:Connect(function()
     Humanoid = lplr.Character:WaitForChild("Humanoid")
