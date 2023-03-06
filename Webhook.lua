@@ -28,7 +28,26 @@ end
 
 function Webhook:Embed(WebhookUrl, Message, Title, description)
     local Success, Error = pcall(function()
-        local Data = Request
+        local Data = Request(
+            {
+                Url = WebhookUrl,
+                Method = "POST",
+                Headers = {
+                    ["Content-Type"] = "application/json"
+                },
+                Body = HttpService:JSONEncode(
+                    {
+                        ["content"] = Message,
+                        ["embeds"] = {
+                            {
+                                ["title"] = Title,
+                                ["description"] = description
+                            }
+                        }
+                    }
+                )
+            }
+        )
     end)
 
     if not Success then
