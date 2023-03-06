@@ -23,7 +23,7 @@ function pathfinding:MoveTo(Position, Wait)
         Begin = HumanoidRootPart;
     end
 
-    local Path = PathFindingService:FindPathAsync(Begin.Position, Position)
+    local Path = PathFindingService:FindPathAsync(Begin.Position + Vector3.new(0, 2, 0), Position)
     local Waypoints = Path:GetWaypoints()
 
     if #Waypoints == 0 then
