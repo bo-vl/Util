@@ -119,6 +119,24 @@ function pathfinding:Path(Position)
         Lib.prompt("Error", "No path found", 5)
     end
 
+    local path = {}
+
+    for Waypoint = 1, Waypoints do
+        local Line = Drawing.new("Line")
+
+        Line.From = Vector2.new(camera:WorldToViewportPoint(Waypoints[Waypoint].Position).X, camera:WorldToViewportPoint(Waypoints[Waypoint].Position).Y)
+
+        local LineTo
+        if Waypoints[Waypoint + 1] then
+            LineTo = Waypoints[Waypoint + 1].Position;
+        else
+            LineTo = Position;
+        end
+
+        Line.To = Vector2.new(camera:WorldToViewportPoint(LineTo).X, camera:WorldToViewportPoint(LineTo).Y)
+
+    end
+
 end
 
 return pathfinding
