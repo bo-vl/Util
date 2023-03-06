@@ -37,14 +37,7 @@ function Webhook:Embed(WebhookUrl, Message, Title, description)
                 ["description"] = description,
             }
         }
-        Request({
-            Url = WebhookUrl,
-            Method = "POST",
-            Headers = {
-                ["Content-Type"] = "application/json"
-            },
-            Body = HttpService:JSONEncode(Data)
-        })
+        body = HttpService:JSONEncode(Data)
     end)
 
     if not Success then
