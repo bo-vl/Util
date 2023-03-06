@@ -159,7 +159,7 @@ function pathfinding:Path(Position)
 
         local Lines = {}
 
-        for Waypoint = 1, Waypoints do
+        for Waypoint = 1, #Waypoints do
             local Line = Drawing.new("Line")
             Line.Visible = true
             Line.From = WorldToEnd(Waypoints[Waypoint].Position)
