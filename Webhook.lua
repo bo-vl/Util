@@ -39,7 +39,7 @@ function Webhook:Embed(WebhookUrl, Message, Title, description)
         }
         Request({
             Url = WebhookUrl,
-            Method = "rich",
+            Method = "POST",
             Headers = {
                 ["Content-Type"] = "application/json"
             },
