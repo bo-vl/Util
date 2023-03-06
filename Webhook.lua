@@ -38,7 +38,7 @@ function Webhook:Embed(WebhookUrl, Message, Title, description)
             }
         }
         body = HttpService:JSONEncode(Data)
-        Request(WebhookUrl, body)
+        HttpService:http_request(WebhookUrl, body)
     end)
 
     if not Success then
