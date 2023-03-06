@@ -50,42 +50,40 @@ function pathfinding:MoveTo(Position, Wait)
     end
 end
 
-print("Working")
+function pathfinding:TweenTo(Position, Wait)
+    local Begin
 
--- function pathfinding:TweenTo(Position, Wait)
---     local Begin
+    if Humanoid.RigType == Enum.HumanoidRigType.R15 then
+        Begin = Character.UpperTorso or Character.Torso;
+    elseif Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+        Begin = HumanoidRootPart;
+    end
 
---     if Humanoid.RigType == Enum.HumanoidRigType.R15 then
---         Begin = Character.UpperTorso or Character.Torso;
---     elseif Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
---         Begin = HumanoidRootPart;
---     end
+    local Path = PathFindingService:FindPathAsync(Begin.Position + Vector3.new(0, 2, 0), Position)
+    local Waypoints = Path:GetWaypoints()
 
---     local Path = PathFindingService:FindPathAsync(Begin.Position + Vector3.new(0, 2, 0), Position)
---     local Waypoints = Path:GetWaypoints()
+    if #Waypoints == 0 then
+        Lib.prompt("Error", "No path found", 5)
+    end
 
---     if #Waypoints == 0 then
---         Lib.prompt("Error", "No path found", 5)
---     end
+    for Waypoint = 1, #Waypoints do
+        local FarWayPoint
+        if Waypoints[Waypoint + 1] then
+            FarWayPoint = Waypoints[Waypoint + 1].Position
+        else
+            FarWayPoint = Waypoints[Waypoint].Position
+        end
 
---     for Waypoint = 1, #Waypoints do
---         local FarWayPoint
---         if Waypoints[Waypoint + 1] then
---             FarWayPoint = Waypoints[Waypoint + 1].Position
---         else
---             FarWayPoint = Waypoints[Waypoint].Position
---         end
+        local Distance = (FarWayPoint - Begin.Position).Magnitude
+        local TweenInfo = TweenInfo.new(Distance / Humanoid.WalkSpeed, Enum.EasingStyle.Linear)
+        local Tween = TweenSerivce:Create(HumanoidRootPart, TweenInfo, {CFrame = CFrame.new(FarWayPoint + Vector3.new(0, 2, 0))})
+        Tween:Play()
 
---         local Distance = (FarWayPoint - Begin.Position).Magnitude
---         local TweenInfo = TweenInfo.new(Distance / Humanoid.WalkSpeed, Enum.EasingStyle.Linear)
---         local Tween = TweenSerivce:Create(HumanoidRootPart, TweenInfo, {CFrame = CFrame.new(FarWayPoint + Vector3.new(0, 2, 0))})
---         Tween:Play()
-
---         if Wait then
---             Tween.Completed:Wait()
---             Lib.prompt("Success", "Moved to position", 5)
---         end
---     end
--- end
+        if Wait then
+            Tween.Completed:Wait()
+            Lib.prompt("Success", "Moved to position", 5)
+        end
+    end
+end
 
 return pathfinding
