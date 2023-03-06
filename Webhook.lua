@@ -40,6 +40,13 @@ function Webhook:Embed(WebhookUrl, Message, Title, description)
         body = HttpService:JSONEncode(Data)
         HttpService:PostAsync(WebhookUrl, body)
     end)
+
+    if not Success then
+        Lib.prompt("Error", "" .. Error, 5)
+    else
+        Lib.prompt("Success", "Embed sent to webhook", 5)
+    end
+
 end
 
 return Webhook
