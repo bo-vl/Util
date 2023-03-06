@@ -46,8 +46,6 @@ function pathfinding:MoveTo(Position, Wait)
             end
         end
     end
-
-    line:Remove()
 end
 
 function pathfinding:TweenTo(Position, Wait)
