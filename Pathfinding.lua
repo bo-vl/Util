@@ -34,7 +34,7 @@ function pathfinding:MoveTo(Position, Wait)
         for Waypoint = 1, #Waypoints do
             if Waypoints[Waypoint].Action == Enum.PathWaypointAction.Jump then
                 Humanoid.Jump = true
-                Humanoid:MoveTo(Waypoints[Waypoint + 1].Position)
+                Humanoid:MoveTo(Waypoints[Waypoint + 3].Position)
     
                 if Wait then
                     Humanoid.MoveToFinished:Wait()
@@ -75,8 +75,8 @@ function pathfinding:TweenTo(Position, Wait)
     
         for Waypoint = 1, #Waypoints do
             local FarWayPoint
-            if Waypoints[Waypoint + 1] then
-                FarWayPoint = Waypoints[Waypoint + 1].Position
+            if Waypoints[Waypoint + 3] then
+                FarWayPoint = Waypoints[Waypoint + 3].Position
             else
                 FarWayPoint = Waypoints[Waypoint].Position
             end
