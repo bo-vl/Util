@@ -6,8 +6,15 @@ local Humanoid = lplr.Character:WaitForChild("Humanoid")
 local HumanoidRootPart = lplr.Character:WaitForChild("HumanoidRootPart")
 local PathFindingService = game:GetService("PathfindingService")
 local TweenSerivce = game:GetService("TweenService")
+local Camera = workspace.CurrentCamera
 
 local pathfinding = {}
+
+function WorldToEnd(Position)
+    local Vector,_ = Camera:WorldToViewportPoint(Position);
+    local NewVector = Vector2.new(Vector.X, Vector.Y);
+    return NewVector;
+end
 
 lplr.CharacterAdded:Connect(function()
     Humanoid = lplr.Character:WaitForChild("Humanoid")
@@ -129,6 +136,59 @@ function pathfinding:TeleportTo(Position)
     else
         Lib.prompt("Success", "Moved to position", 5)
     end
+end
+
+function pathfinding:Path(Position)
+    local Success, Error = pcall(function()
+        
+        local Begin
+
+        if Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+            Begin = Character.UpperTorso or Character.Torso;
+        elseif Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+            Begin = HumanoidRootPart;
+        end
+
+        local Path = PathFindingService:FindPathAsync(Begin.Position, Position)
+        local Waypoints = Path:GetWaypoints()
+
+        if #Waypoints == 0 then
+            Lib.prompt("Error", "No path found", 5)
+            return
+        end
+
+        local Lines = {}
+
+        for Waypoint = 1, Waypoints do
+            local Line = Drawing.new("Line")
+            Line.Visible = true
+            Line.From = WorldToEnd(Waypoints[Waypoint].Position)
+
+            local LineTo
+            if Waypoints[Waypoint + 1] then
+                LineTo = Waypoints[Waypoint + 1].Position
+            else
+                LineTo = Position
+            end
+
+            Line.To = WorldToEnd(LineTo)
+
+            table.insert(Lines, {
+                Line = Line,
+                To = LineTo,
+                From = Waypoints[Waypoint].Position
+            })
+        end
+
+    end)
+
+    if not Success then
+        Lib.prompt("Error", "" .. Error, 5)
+        return
+    else
+        Lib.prompt("Success", "Moved to position", 5)
+    end
+
 end
 
 return pathfinding
