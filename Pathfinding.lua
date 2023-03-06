@@ -30,6 +30,14 @@ function pathfinding:MoveTo(Position, Wait)
         Lib.prompt("Error", "No path found", 5)
     end
 
+    -- Draw a line between the player's current position and the destination position
+    local line = Drawing.new("Line")
+    line.Visible = true
+    line.From = Begin.Position
+    line.To = Position
+    line.Color = Color3.new(1, 1, 1)
+    line.Thickness = 2
+
     for Waypoint = 1, #Waypoints do
         if Waypoints[Waypoint].Action == Enum.PathWaypointAction.Jump then
             Humanoid.Jump = true
@@ -46,7 +54,11 @@ function pathfinding:MoveTo(Position, Wait)
             end
         end
     end
+
+    -- Remove the line once the player reaches the destination
+    line:Remove()
 end
+
 
 function pathfinding:TweenTo(Position, Wait)
     local Begin
