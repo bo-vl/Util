@@ -180,6 +180,40 @@ function pathfinding:Path(Position)
             })
         end
 
+        task.spawn(function()
+            for _,Line in next, Lines do
+                local _, OnScreen = Camera:WorldToViewportPoint(Line.From)
+                local Distance = (HumanoidRootPart.Position - Position).Magnitude
+
+                if OnScreen and Distance > 5 then
+                    Line.Line.Visible = true
+                else
+                    Line.Line.Visible = false
+                end
+
+                if Distance <= 5 then
+                    for _, Line in next, Lines do
+                        Line.Line:Destroy();
+                    end
+                    table.clear(Lines);
+                end
+
+                if #Lines > 0 then
+                    local LastUpdate = tick();
+                    if tick() - LastUpdate >= 60 then
+                        for _, Line in next, Lines do
+                            Line.Line:Destroy();
+                        end
+                        table.clear(Lines);
+                    end
+                end
+
+
+                Line.Line.From = WorldToEnd(Line.From);
+                Line.Line.To = WorldToEnd(Line.To);
+            end
+        end)
+
     end)
 
     if not Success then
