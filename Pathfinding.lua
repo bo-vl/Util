@@ -208,12 +208,11 @@ function pathfinding:Path(Position)
                     end
                 end
 
-
                 Line.Line.From = WorldToEnd(Line.From);
                 Line.Line.To = WorldToEnd(Line.To);
+
             end
         end)
-
     end)
 
     if not Success then
