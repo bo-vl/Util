@@ -185,7 +185,7 @@ function pathfinding:Path(Position)
                 local _, OnScreen = Camera:WorldToViewportPoint(Line.From)
                 local Distance = (HumanoidRootPart.Position - Position).Magnitude
 
-                if OnScreen and Distance > 5 then
+                if OnScreen then
                     Line.Line.Visible = true
                 else
                     Line.Line.Visible = false
