@@ -26,4 +26,20 @@ function Webhook:Send(WebhookUrl, Message)
     end
 end
 
+function Webhook:Embed(WebhookUrl, Message, Title, description)
+    local Success, Error = pcall(function()
+        local Data = {
+            ["type"] = "rich",
+            ["content"] = Message,
+            ["tts"] = false,
+            ["embed"] = {
+                ["title"] = Title,
+                ["description"] = description,
+            }
+        }
+        body = HttpService:JSONEncode(Data)
+        HttpService:PostAsync(WebhookUrl, body)
+    end)
+end
+
 return Webhook
