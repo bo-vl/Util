@@ -36,8 +36,8 @@ function pathfinding:MoveTo(Position, Wait)
         if Waypoints[Waypoint].Action == Enum.PathWaypointAction.Jump then
             Humanoid.Jump = true
             Humanoid:MoveTo(Waypoints[Waypoint + 1].Position)
-            Line.From = Vector2.new(Camera:WorldToViewportPoint(Begin.Position).X, Camera:WorldToViewportPoint(Begin.Position).Y)
-            Line.To = Vector2.new(Camera:WorldToViewportPoint(Waypoints[Waypoint + 1].Position).X, Camera:WorldToViewportPoint(Waypoints[Waypoint + 1].Position).Y)
+            Line.From = Vector2.new(Begin.Position)
+            Line.To = Vector2.new(Waypoints[Waypoint + 1].Position)
 
             if Wait then
                 Humanoid.MoveToFinished:Wait()
