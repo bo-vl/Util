@@ -32,8 +32,8 @@ function pathfinding:MoveTo(Position, Wait)
 
     local line = Drawing.new("Line")
     line.Visible = true
-    line.From = Begin.Position
-    line.To = Position
+    line.From = Vector2.new(Begin.Position.X, Begin.Position.Z)
+    line.To = Vector2.new(Position.X, Position.Z)
     line.Color = Color3.fromRGB(255, 0, 0)
     line.Thickness = 3
 
