@@ -39,7 +39,7 @@ function pathfinding:MoveTo(Position, wait)
 
         if wait then
             Tween.Completed:Wait()
-            lib.prompt("Success", "Moved to position", 5)
+            Lib.prompt("Success", "Moved to position", 5)
         end
     end
 end
