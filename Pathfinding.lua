@@ -50,6 +50,8 @@ function pathfinding:MoveTo(Position, Wait)
     end
 end
 
+print("Working")
+
 -- function pathfinding:TweenTo(Position, Wait)
 --     local Begin
 
