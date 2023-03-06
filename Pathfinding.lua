@@ -104,39 +104,4 @@ function pathfinding:TeleportTo(Position)
     HumanoidRootPart.CFrame = CFrame.new(Waypoints[#Waypoints].Position)
 end
 
-function pathfinding:Path(Position)
-    local Begin
-    if Humanoid.RigType == Enum.HumanoidRigType.R15 then
-        Begin = Character.UpperTorso or Character.Torso;
-    elseif Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-        Begin = HumanoidRootPart;
-    end
-
-    local Path = PathFindingService:FindPathAsync(Begin.Position, Position)
-    local Waypoints = Path:GetWaypoints()
-
-    if #Waypoints == 0 then
-        Lib.prompt("Error", "No path found", 5)
-    end
-
-    local path = {}
-
-    for Waypoint = 1, Waypoints do
-        local Line = Drawing.new("Line")
-
-        Line.From = Vector2.new(camera:WorldToViewportPoint(Waypoints[Waypoint].Position).X, camera:WorldToViewportPoint(Waypoints[Waypoint].Position).Y)
-
-        local LineTo
-        if Waypoints[Waypoint + 1] then
-            LineTo = Waypoints[Waypoint + 1].Position;
-        else
-            LineTo = Position;
-        end
-
-        Line.To = Vector2.new(camera:WorldToViewportPoint(LineTo).X, camera:WorldToViewportPoint(LineTo).Y)
-
-    end
-
-end
-
 return pathfinding
