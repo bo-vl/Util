@@ -32,7 +32,7 @@ function pathfinding:MoveTo(Position, wait)
             FarWayPoint = Waypoints[Waypoint].Position
         end
 
-        local Distance = (FarWayPoint - Position).Magnitude
+        local Distance = (FarWayPoint - Begin.Position).Magnitude
         local TweenInfo = TweenInfo.new(Distance / Humanoid.WalkSpeed, Enum.EasingStyle.Linear)
         local Tween = TweenSerivce:Create(HumanoidRootPart, TweenInfo, {CFrame.new(FarWayPoint + Vector3.new(0, 2, 0))})
         Tween:Play()
