@@ -23,6 +23,42 @@ function pathfinding:MoveTo(Position, Wait)
         Begin = HumanoidRootPart;
     end
 
+    local Path = PathFindingService:FindPathAsync(Begin.Position, Position)
+    local Waypoints = Path:GetWaypoints()
+
+    if #Waypoints == 0 then
+        Lib.prompt("Error", "No path found", 5)
+    end
+
+    if Waypoint = 1, #Waypoints then
+        if Waypoints[Waypoint].Action == Enum.PathWaypointAction.Jump then
+            Humanoid.Jump = true
+            Humanoid:MoveTo(Waypoints[Waypoint + 1].Position)
+
+            if Wait then
+                Humanoid.MoveToFinished:Wait()
+                Lib.prompt("Success", "Moved to position", 5)
+            end
+        else
+            Humanoid:MoveTo(Waypoints[Waypoint].Position)
+
+            if Wait then
+                Humanoid.MoveToFinished:Wait()
+                Lib.prompt("Success", "Moved to position", 5)
+            end
+        end
+    end
+end
+
+function pathfinding:TweenTo(Position, Wait)
+    local Begin
+
+    if Humanoid.RigType == Enum.HumanoidRigType.R15 then
+        Begin = Character.UpperTorso or Character.Torso;
+    elseif Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+        Begin = HumanoidRootPart;
+    end
+
     local Path = PathFindingService:FindPathAsync(Begin.Position + Vector3.new(0, 2, 0), Position)
     local Waypoints = Path:GetWaypoints()
 
