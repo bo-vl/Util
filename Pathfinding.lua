@@ -54,7 +54,6 @@ function pathfinding:MoveTo(Position, Wait)
     else
         Lib.prompt("Success", "Moved to position", 5)
     end
-
 end
 
 function pathfinding:TweenTo(Position, Wait)
@@ -98,26 +97,33 @@ function pathfinding:TweenTo(Position, Wait)
     else
         Lib.prompt("Success", "Moved to position", 5)
     end
-
 end
 
 function pathfinding:TeleportTo(Position)
-    local Begin
+    local Success, Error = pcall(function()
+        local Begin
 
-    if Humanoid.RigType == Enum.HumanoidRigType.R15 then
-        Begin = Character.UpperTorso or Character.Torso;
-    elseif Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
-        Begin = HumanoidRootPart;
+        if Humanoid.RigType == Enum.HumanoidRigType.R15 then
+            Begin = Character.UpperTorso or Character.Torso;
+        elseif Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+            Begin = HumanoidRootPart;
+        end
+    
+        local Path = PathFindingService:FindPathAsync(Begin.Position, Position)
+        local Waypoints = Path:GetWaypoints()
+    
+        if #Waypoints == 0 then
+            Lib.prompt("Error", "No path found", 5)
+        end
+    
+        HumanoidRootPart.CFrame = CFrame.new(Waypoints[#Waypoints].Position)
+    end)
+
+    if not Success then
+        Lib.prompt("Error", "" .. Error, 5)
+    else
+        Lib.prompt("Success", "Moved to position", 5)
     end
-
-    local Path = PathFindingService:FindPathAsync(Begin.Position, Position)
-    local Waypoints = Path:GetWaypoints()
-
-    if #Waypoints == 0 then
-        Lib.prompt("Error", "No path found", 5)
-    end
-
-    HumanoidRootPart.CFrame = CFrame.new(Waypoints[#Waypoints].Position)
 end
 
 return pathfinding
