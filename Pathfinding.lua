@@ -193,9 +193,9 @@ function pathfinding:Path(Position)
 
                 if Distance <= 5 then
                     for _, Line in next, Lines do
-                        Line.Line:Destroy();
+                        Line.Line:Destroy()
                     end
-                    table.clear(Lines);
+                    table.clear(Lines)
                 end
 
                 if #Lines > 0 then
