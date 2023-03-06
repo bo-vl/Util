@@ -9,10 +9,6 @@ local TweenSerivce = game:GetService("TweenService")
 
 local pathfinding = {}
 
-local Settings = {
-    [KeybindInput] = false
-}
-
 lplr.CharacterAdded:Connect(function()
     Humanoid = lplr.Character:WaitForChild("Humanoid")
     HumanoidRootPart = lplr.Character:WaitForChild("HumanoidRootPart")
@@ -133,20 +129,6 @@ function pathfinding:TeleportTo(Position)
     else
         Lib.prompt("Success", "Moved to position", 5)
     end
-end
-
-function pathfinding:Setting(Settings, Value)
-    local Success, Error = pcall(function()
-        Settings[Settings] = Value
-    end)
-
-    if not Success then
-        Lib.prompt("Error", "" .. Error, 5)
-        return
-    else
-        Lib.prompt("Success", "Set setting", 5)
-    end
-
 end
 
 return pathfinding
