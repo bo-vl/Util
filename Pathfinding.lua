@@ -6,10 +6,12 @@ local Humanoid = lplr.Character:WaitForChild("Humanoid")
 local HumanoidRootPart = lplr.Character:WaitForChild("HumanoidRootPart")
 local PathFindingService = game:GetService("PathfindingService")
 local TweenSerivce = game:GetService("TweenService")
-local camera =  workspace.CurrentCamera
-local runservice = game:GetService("RunService")
+local Camera =  workspace.CurrentCamera
+local Runservice = game:GetService("RunService")
+local Line = Drawing.new("Line")
 
 local pathfinding = {}
+local Lines = {}
 
 lplr.CharacterAdded:Connect(function()
     Humanoid = lplr.Character:WaitForChild("Humanoid")
@@ -36,6 +38,8 @@ function pathfinding:MoveTo(Position, Wait)
         if Waypoints[Waypoint].Action == Enum.PathWaypointAction.Jump then
             Humanoid.Jump = true
             Humanoid:MoveTo(Waypoints[Waypoint + 1].Position)
+            Line.From = Vector2.new(Camera:WorldToViewportPoint(Begin.Position).X, Camera:WorldToViewportPoint(Begin.Position).Y)
+            Line.To = Vector2.new(Camera:WorldToViewportPoint(Waypoints[Waypoint + 1].Position).X, Camera:WorldToViewportPoint(Waypoints[Waypoint + 1].Position).Y)
 
             if Wait then
                 Humanoid.MoveToFinished:Wait()
@@ -48,6 +52,7 @@ function pathfinding:MoveTo(Position, Wait)
             end
         end
     end
+    Line:Destroy()
 end
 
 function pathfinding:TweenTo(Position, Wait)
