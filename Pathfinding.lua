@@ -37,14 +37,12 @@ function pathfinding:MoveTo(Position, Wait)
 
             if Wait then
                 Humanoid.MoveToFinished:Wait()
-                Lib.prompt("Success", "Moved to position", 5)
             end
         else
             Humanoid:MoveTo(Waypoints[Waypoint].Position)
 
             if Wait then
                 Humanoid.MoveToFinished:Wait()
-                Lib.prompt("Success", "Moved to position", 5)
             end
         end
     end
@@ -81,7 +79,6 @@ function pathfinding:TweenTo(Position, Wait)
 
         if Wait then
             Tween.Completed:Wait()
-            Lib.prompt("Success", "Moved to position", 5)
         end
     end
 end
