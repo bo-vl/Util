@@ -30,7 +30,7 @@ function pathfinding:MoveTo(Position, Wait)
         Lib.prompt("Error", "No path found", 5)
     end
 
-    if Waypoint = 1, #Waypoints then
+    for Waypoint = 1, #Waypoints do
         if Waypoints[Waypoint].Action == Enum.PathWaypointAction.Jump then
             Humanoid.Jump = true
             Humanoid:MoveTo(Waypoints[Waypoint + 1].Position)
