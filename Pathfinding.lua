@@ -83,4 +83,23 @@ function pathfinding:TweenTo(Position, Wait)
     end
 end
 
+function pathfinding:TeleportTo(Position)
+    local Begin
+
+    if Humanoid.RigType == Enum.HumanoidRigType.R15 then
+        Begin = Character.UpperTorso or Character.Torso;
+    elseif Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+        Begin = HumanoidRootPart;
+    end
+
+    local Path = PathFindingService:FindPathAsync(Begin.Position, Position)
+    local Waypoints = Path:GetWaypoints()
+
+    if #Waypoints == 0 then
+        Lib.prompt("Error", "No path found", 5)
+    end
+
+    HumanoidRootPart.CFrame = CFrame.new(Waypoints[#Waypoints].Position)
+end
+
 return pathfinding
