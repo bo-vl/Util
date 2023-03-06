@@ -30,12 +30,6 @@ function pathfinding:MoveTo(Position, Wait)
         Lib.prompt("Error", "No path found", 5)
     end
 
-    local line = Drawing.new("Line")
-    line.From = Vector2.new(Begin.Position.X, Begin.Position.Z)
-    line.To = Vector2.new(Position.X, Position.Z)
-    line.Color = Color3.fromRGB(255, 0, 0)
-    line.Thickness = 3
-
     for Waypoint = 1, #Waypoints do
         if Waypoints[Waypoint].Action == Enum.PathWaypointAction.Jump then
             Humanoid.Jump = true
@@ -55,8 +49,6 @@ function pathfinding:MoveTo(Position, Wait)
 
     line:Remove()
 end
-
-
 
 function pathfinding:TweenTo(Position, Wait)
     local Begin
