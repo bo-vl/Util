@@ -14,7 +14,7 @@ lplr.CharacterAdded:Connect(function()
     HumanoidRootPart = lplr.Character:WaitForChild("HumanoidRootPart")
 end)
 
-function pathfinding:MoveTo(Position, wait)
+function pathfinding:MoveTo(Position, Wait)
     local Begin
 
     if Humanoid.RigType == Enum.HumanoidRigType.R15 then
@@ -44,7 +44,7 @@ function pathfinding:MoveTo(Position, wait)
         local Tween = TweenSerivce:Create(HumanoidRootPart, TweenInfo, {CFrame.new(FarWayPoint + Vector3.new(0, 2, 0))})
         Tween:Play()
 
-        if wait then
+        if Wait then
             Tween.Completed:Wait()
             Lib.prompt("Success", "Moved to position", 5)
         end
