@@ -47,13 +47,14 @@ function pathfinding:MoveTo(Position, Wait)
                 end
             end
         end
-
-        if not Success then
-            Lib.prompt("Error", "" .. Error, 5)
-        else
-            Lib.prompt("Success", "Moved to position", 5)
-        end
     end)
+
+    if not Success then
+        Lib.prompt("Error", "" .. Error, 5)
+    else
+        Lib.prompt("Success", "Moved to position", 5)
+    end
+
 end
 
 function pathfinding:TweenTo(Position, Wait)
