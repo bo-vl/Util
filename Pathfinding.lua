@@ -6,6 +6,7 @@ local Humanoid = lplr.Character:WaitForChild("Humanoid")
 local HumanoidRootPart = lplr.Character:WaitForChild("HumanoidRootPart")
 local PathFindingService = game:GetService("PathfindingService")
 local TweenSerivce = game:GetService("TweenService")
+getgenv().NoPath = false
 
 local pathfinding = {}
 
@@ -29,6 +30,7 @@ function pathfinding:MoveTo(Position, Wait)
     
         if #Waypoints == 0 then
             Lib.prompt("Error", "No path found", 5)
+            NoPath = true
             return
         end
     
@@ -54,7 +56,11 @@ function pathfinding:MoveTo(Position, Wait)
         Lib.prompt("Error", "" .. Error, 5)
         return
     else
-        Lib.prompt("Success", "Moved to position", 5)
+        if not NoPath then
+            Lib.prompt("Success", "Moved to position", 5)
+        else
+            NoPath = false
+        end
     end
 end
 
@@ -98,7 +104,11 @@ function pathfinding:TweenTo(Position, Wait)
     if not Success then
         Lib.prompt("Error", "" .. Error, 5)
     else
-        Lib.prompt("Success", "Moved to position", 5)
+        if not NoPath then
+            Lib.prompt("Success", "Moved to position", 5)
+        else
+            NoPath = false
+        end
     end
 end
 
@@ -127,7 +137,11 @@ function pathfinding:TeleportTo(Position)
         Lib.prompt("Error", "" .. Error, 5)
         return
     else
-        Lib.prompt("Success", "Moved to position", 5)
+        if not NoPath then
+            Lib.prompt("Success", "Moved to position", 5)
+        else
+            NoPath = false
+        end
     end
 end
 
