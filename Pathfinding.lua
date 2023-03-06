@@ -28,7 +28,6 @@ function pathfinding:MoveTo(Position, Wait)
 
     if #Waypoints == 0 then
         Lib.prompt("Error", "No path found", 5)
-        return
     end
 
     for Waypoint = 1, #Waypoints do
