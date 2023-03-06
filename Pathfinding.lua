@@ -6,15 +6,12 @@ local Humanoid = lplr.Character:WaitForChild("Humanoid")
 local HumanoidRootPart = lplr.Character:WaitForChild("HumanoidRootPart")
 local PathFindingService = game:GetService("PathfindingService")
 local TweenSerivce = game:GetService("TweenService")
-local Camera = workspace.CurrentCamera
 
 local pathfinding = {}
 
-function WorldToEnd(Position)
-    local Vector,_ = Camera:WorldToViewportPoint(Position);
-    local NewVector = Vector2.new(Vector.X, Vector.Y);
-    return NewVector;
-end
+local Settings = {
+    [KeybindInput] = false
+}
 
 lplr.CharacterAdded:Connect(function()
     Humanoid = lplr.Character:WaitForChild("Humanoid")
@@ -136,6 +133,20 @@ function pathfinding:TeleportTo(Position)
     else
         Lib.prompt("Success", "Moved to position", 5)
     end
+end
+
+function pathfinding:Setting(Settings, Value)
+    local Success, Error = pcall(function()
+        Settings[Settings] = Value
+    end)
+
+    if not Success then
+        Lib.prompt("Error", "" .. Error, 5)
+        return
+    else
+        Lib.prompt("Success", "Set setting", 5)
+    end
+
 end
 
 return pathfinding
