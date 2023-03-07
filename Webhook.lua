@@ -22,7 +22,7 @@ function Webhook:Send(WebhookUrl, Message)
     if not Success then
         Lib.prompt("Error", "" .. Error, 5)
     else
-        Lib.prompt("Success", "Message sent to webhook", 5)
+        --working
     end
 end
 
@@ -53,7 +53,7 @@ function Webhook:Embed(WebhookUrl, Content, Title, description)
     if not Success then
         Lib.prompt("Error", "" .. Error, 5)
     else
-        Lib.prompt("Success", "Embed sent to webhook", 5)
+        --working
     end
 
 end
