@@ -2,7 +2,8 @@ local Lib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Robobo20
 local TweenService = game:GetService("TweenService")
 local lplr = game:GetService("Players").LocalPlayer
 
-function Tween(Position, Time)
+local Tween = {}
+function Tween:TweenTo(Position, Time)
     local Success, Error = pcall(function()
         local startpos = lplr.Character.HumanoidRootPart.Position
         local endpos = Position
