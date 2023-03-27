@@ -18,3 +18,5 @@ function Tween:Start(Position, Time)
         --working
     end
 end
+
+return Tween
