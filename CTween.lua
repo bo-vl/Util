@@ -25,5 +25,4 @@ function ctween:go(player, endPosition, duration)
     end
 end
 
-
 return ctween
