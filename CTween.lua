@@ -1,16 +1,17 @@
 local ctween = {}
 
-function ctween:go(part, endPosition, duration)
-    local startPosition = part.CFrame
+function ctween:go(player, endPosition, duration)
+    local humanoidRootPart = player.Character.HumanoidRootPart
+    local startPosition = humanoidRootPart.CFrame
     local startTime = os.clock()
 
     local function updatePosition()
         local elapsedTime = os.clock() - startTime
         if elapsedTime >= duration then
-            part.CFrame = endPosition
+            humanoidRootPart.CFrame = endPosition
         else
             local t = elapsedTime / duration
-            part.CFrame = startPosition:Lerp(endPosition, t)
+            humanoidRootPart.CFrame = startPosition:Lerp(endPosition, t)
         end
     end
 
