@@ -27,6 +27,9 @@ function pathfinding:followPath(player, waypoints, distanceThreshold)
     local currentWaypointIndex = 1
     local targetPosition = waypoints[currentWaypointIndex]
 
+    local humanoid = player.Character.Humanoid
+    humanoid:MoveTo(targetPosition)
+
     local connection
     connection = game:GetService("RunService").Heartbeat:Connect(function()
         local humanoidRootPart = player.Character.HumanoidRootPart
@@ -36,10 +39,11 @@ function pathfinding:followPath(player, waypoints, distanceThreshold)
             currentWaypointIndex = currentWaypointIndex + 1
             if currentWaypointIndex > #waypoints then
                 connection:Disconnect()
-                player.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
                 return
             else
                 targetPosition = waypoints[currentWaypointIndex]
+                humanoid:MoveTo(targetPosition)
             end
         end
 
@@ -51,4 +55,3 @@ function pathfinding:followPath(player, waypoints, distanceThreshold)
     end
 end
 
-return pathfinding
