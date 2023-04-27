@@ -1,8 +1,8 @@
 local pathfinding = {}
 
-function pathfinding:findPath(startPosition, endPosition)
+function pathfinding:findPath(endPosition)
     local path = game:GetService("PathfindingService"):CreatePath()
-    path:ComputeAsync(startPosition, endPosition)
+    path:ComputeAsync(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, endPosition)
 
     local waypoints = {}
     if path.Status == Enum.PathStatus.Success then
@@ -19,6 +19,7 @@ function pathfinding:findPath(startPosition, endPosition)
     end
     return waypoints
 end
+
 
 
 function pathfinding:followPath(player, waypoints, distanceThreshold)
