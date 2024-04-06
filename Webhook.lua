@@ -1,6 +1,5 @@
 local Request = (syn and syn.request or request or http and http.request or http_request) or error("No request function")
 local HttpService = game:GetService("HttpService")
-local Lib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Robobo2022/notify-lib/main/lib'),true))()
 
 local Webhook = {}
 
@@ -20,7 +19,7 @@ function Webhook:Send(WebhookUrl, Message)
     end)
 
     if not Success then
-        Lib.prompt("Error", "" .. Error, 5)
+        warn("Error: " .. Error)
     else
         --working
     end
@@ -51,7 +50,7 @@ function Webhook:Embed(WebhookUrl, Content, Title, description)
     end)
 
     if not Success then
-        Lib.prompt("Error", "" .. Error, 5)
+        warn("Error: " .. Error)
     else
         --working
     end
