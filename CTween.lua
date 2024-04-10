@@ -1,6 +1,7 @@
 local ctween = {}
 
-function ctween:go(player, endPosition, duration)
+function ctween:go(endPosition, duration)
+    local player = game.Players.LocalPlayer
     local humanoidRootPart = player.Character.HumanoidRootPart
     local startPosition = humanoidRootPart.CFrame
     local startTime = os.clock()
