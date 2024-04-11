@@ -100,10 +100,10 @@ local MoveCharacter = function(endPosition)
         print("Failed to find a valid path")
     end
     
-    isMoving = false
-    
     if success then
-        wait(0.1)
+        while isMoving do
+            wait()
+        end
         RemovePath()
     end
 end
