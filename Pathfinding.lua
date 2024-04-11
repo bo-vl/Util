@@ -90,20 +90,18 @@ local MoveCharacter = function(endPosition)
         if #waypoints > 0 then
             for i, waypoint in ipairs(waypoints) do
                 lplr.Character.Humanoid:MoveTo(waypoint.Position)
+            else
+                RemovePath()
             end
         else
             isMoving = false
             print("No waypoints found in the path")
+            RemovePath()
         end
     else
         isMoving = false
         print("Failed to find a valid path")
-    end
-    
-    if success then
-        while not isMoving do
-            RemovePath()
-        end
+        RemovePath()
     end
 end
 
