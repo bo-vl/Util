@@ -1,5 +1,4 @@
 local PathfindingService = game:GetService("PathfindingService")
-local Util = loadstring(game:HttpGet("https://raw.githubusercontent.com/Robobo2022/Util/main/Load.lua"))()
 local lplr = game:GetService("Players").LocalPlayer
 
 local ShowPath = function(waypoints)
@@ -72,24 +71,8 @@ local MoveCharacter = function(endPosition)
     
     if success then
         if #waypoints > 0 then
-            local offGround = false
-            for _, waypoint in ipairs(waypoints) do
-                if waypoint.Position.Y > lplr.Character.HumanoidRootPart.Position.Y then
-                    offGround = true
-                    break
-                end
-            end
-            
-            if offGround then
-                local start = lplr.Character.HumanoidRootPart.Position
-                local distance = (endPosition - start).Magnitude
-                local duration = distance / 16
-                duration = math.max(duration, 1)
-                Util.CTween:go(endPosition, duration)
-            elseif not offGround then
-                for i, waypoint in ipairs(waypoints) do
-                    lplr.Character.Humanoid:MoveTo(waypoint.Position)
-                end
+            for i, waypoint in ipairs(waypoints) do
+                lplr.Character.Humanoid:MoveTo(waypoint.Position)
             end
         else
             isMoving = false
