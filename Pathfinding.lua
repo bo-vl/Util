@@ -1,6 +1,9 @@
 local PathfindingService = game:GetService("PathfindingService")
 local Util = loadstring(game:HttpGet("https://raw.githubusercontent.com/Robobo2022/Util/main/Load.lua"))()
 local lplr = game:GetService("Players").LocalPlayer
+local ShowPath = {}
+local FindPath = {}
+local MoveCharacter = {}
 
 local ShowPath = function(waypoints)
     for _, child in ipairs(workspace:GetChildren()) do
@@ -102,3 +105,9 @@ local MoveCharacter = function(endPosition)
     
     isMoving = false
 end
+
+return {
+    FindPath = FindPath,
+    ShowPath = ShowPath,
+    MoveCharacter = MoveCharacter
+}

@@ -8,9 +8,6 @@ Util.CTween:go(endPosition, duration)
 ```
 ```lua
 local Util = loadstring(game:HttpGet("https://raw.githubusercontent.com/Robobo2022/Util/main/Load.lua"))()
-local endPosition = CFrame.new(1,1,1).Position
-local duration = 10
-FindPath(endPosition)
-ShowPath(endPosition)
-MoveCharacter(endPosition)
+local endPosition = CFrame.new(1,1,1)
+Util.PathFind.MoveCharacter(endPosition)
 ```
