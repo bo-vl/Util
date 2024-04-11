@@ -101,10 +101,9 @@ local MoveCharacter = function(endPosition)
     end
     
     if success then
-        while isMoving do
-            wait()
+        while not isMoving do
+            RemovePath()
         end
-        RemovePath()
     end
 end
 
