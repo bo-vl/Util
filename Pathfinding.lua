@@ -74,30 +74,26 @@ local RemovePath = function()
     end
 end
 
-local isMoving = false
-
 local MoveCharacter = function(endPosition)
-    if isMoving then
-        print("Already moving, please wait for the current path to finish")
-        return
-    end
-    
-    isMoving = true
-    
     local success, waypoints, path = FindPath(endPosition)
     
     if success then
-        if #waypoints > 0 then
-            for i, waypoint in ipairs(waypoints) do
-                lplr.Character.Humanoid:MoveTo(waypoint.Position)
-                lplr.Character.Humanoid.MoveToFinished()
-            end
-        else
-            isMoving = false
-            print("No waypoints found in the path")
+        local nextWaypointIndex = 1
+        
+        if path.Status == Enum.PathStatus.Success then
+            local reachedConnection
+            reachedConnection = lplr.Character.Humanoid.MoveToFinished:Connect(function(reached)
+                if reached and nextWaypointIndex < #waypoints then
+                    nextWaypointIndex = nextWaypointIndex + 1
+                    lplr.Character.Humanoid:MoveTo(waypoints[nextWaypointIndex].Position)
+                else
+                    reachedConnection:Disconnect()
+                end
+            end)
+            
+            lplr.Character.Humanoid:MoveTo(waypoints[nextWaypointIndex].Position)
         end
     else
-        isMoving = false
         print("Failed to find a valid path")
     end
 end
