@@ -102,3 +102,9 @@ local MoveCharacter = function(endPosition)
     
     isMoving = false
 end
+
+return {
+    FindPath = FindPath,
+    ShowPath = ShowPath,
+    MoveCharacter = MoveCharacter
+}
