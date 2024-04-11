@@ -90,6 +90,7 @@ local MoveCharacter = function(endPosition)
         if #waypoints > 0 then
             for i, waypoint in ipairs(waypoints) do
                 lplr.Character.Humanoid:MoveTo(waypoint.Position)
+                lplr.Character.Humanoid.MoveToFinished()
             end
         else
             isMoving = false
