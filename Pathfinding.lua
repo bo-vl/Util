@@ -1,11 +1,6 @@
 local PathfindingService = game:GetService("PathfindingService")
-local Util = loadstring(game:HttpGet("https://raw.githubusercontent.com/Robobo2022/Util/main/Load.lua"))()
-local lplr = game:GetService("Players").LocalPlayer
-local ShowPath = {}
-local FindPath = {}
-local MoveCharacter = {}
 
-local ShowPath = function(waypoints)
+local function ShowPath(waypoints)
     for _, child in ipairs(workspace:GetChildren()) do
         if child:IsA("Model") and child.Name == "Path" then
             child:Destroy()
@@ -28,21 +23,28 @@ local ShowPath = function(waypoints)
     end
 end
 
-local FindPath = function(endPosition)
+local function FindPath(endPosition)
+    local lplr = game:GetService("Players").LocalPlayer
     if not endPosition or not typeof(endPosition) == "Vector3" then
         error("Invalid endPosition")
         return false, {}, nil
     end
     
-    if not lplr.Character or not lplr.Character.HumanoidRootPart then
-        error("LocalPlayer character or HumanoidRootPart not found")
+    local lplr = game:GetService("Players").LocalPlayer
+    if not lplr.Character or not lplr.Character.PrimaryPart then
+        error("LocalPlayer character or PrimaryPart not found")
         return false, {}, nil
     end
     
-    local path = PathfindingService:CreatePath()
+    local path = PathfindingService:CreatePath({
+        AgentRadius = lplr.Character.HumanoidRootPart.Size.X / 2,
+        AgentHeight = lplr.Character.HumanoidRootPart.Size.Y,
+        AgentCanJump = true,
+        AgentJumpHeight = lplr.Character.Humanoid.JumpPower
+    })
     
     local success, message = pcall(function()
-        path:ComputeAsync(lplr.Character.HumanoidRootPart.Position, endPosition)
+        path:ComputeAsync(lplr.Character.PrimaryPart.Position, endPosition)
     end)
     
     if not success then
@@ -53,57 +55,34 @@ local FindPath = function(endPosition)
     local waypoints = {}
     local pathStatus = path.Status
     
-    if pathStatus == Enum.PathStatus.Success then
+    if pathStatus == Enum.PathStatus.Complete then
         waypoints = path:GetWaypoints()
         ShowPath(waypoints) 
     end
     
-    return pathStatus == Enum.PathStatus.Success, waypoints, path
+    return pathStatus == Enum.PathStatus.Complete, waypoints, path
 end
 
-local isMoving = false
-
-local MoveCharacter = function(endPosition)
-    if isMoving then
-        print("Already moving, please wait for the current path to finish")
+local function MoveCharacter(endPosition)
+    local lplr = game:GetService("Players").LocalPlayer
+    if not lplr then
+        error("LocalPlayer not found")
         return
     end
-    
-    isMoving = true
     
     local success, waypoints, path = FindPath(endPosition)
     
     if success then
         if #waypoints > 0 then
-            local offGround = false
             for _, waypoint in ipairs(waypoints) do
-                if waypoint.Position.Y > lplr.Character.HumanoidRootPart.Position.Y then
-                    offGround = true
-                    break
-                end
-            end
-            
-            if offGround then
-                local start = lplr.Character.HumanoidRootPart.Position
-                local distance = (endPosition - start).Magnitude
-                local duration = distance / 16
-                duration = math.max(duration, 1)
-                Util.CTween:go(endPosition, duration)
-            elseif not offGround then
-                for i, waypoint in ipairs(waypoints) do
-                    lplr.Character.Humanoid:MoveTo(waypoint.Position)
-                end
+                lplr.Character:MoveTo(waypoint.Position)
             end
         else
-            isMoving = false
             print("No waypoints found in the path")
         end
     else
-        isMoving = false
         print("Failed to find a valid path")
     end
-    
-    isMoving = false
 end
 
 return {
