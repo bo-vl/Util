@@ -25,7 +25,7 @@ local ShowPath = function(waypoints)
 end
 
 local FindPath = function(endPosition)
-    if not endPosition or not typeof(endPosition) == "Vector3" then
+    if not endPosition or not typeof(endPosition) == "CFrame" then
         error("Invalid endPosition")
         return false, {}, nil
     end
@@ -38,7 +38,7 @@ local FindPath = function(endPosition)
     local path = PathfindingService:CreatePath()
     
     local success, message = pcall(function()
-        path:ComputeAsync(lplr.Character.HumanoidRootPart.Position, endPosition)
+        path:ComputeAsync(lplr.Character.HumanoidRootPart.Position, endPosition.Position)
     end)
     
     if not success then
